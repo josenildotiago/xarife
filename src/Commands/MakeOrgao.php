@@ -15,7 +15,7 @@ class MakeOrgao extends Command
     {
         $name = $this->argument('name');
         $sigla = strtolower($name);
-        $classe = Str::studly($name);
+        $classe = Str::studly($sigla);
 
         $this->newLine();
         $this->line("  Gerando módulo para o órgão: <comment>{$classe}</comment> (<comment>{$sigla}</comment>)");
@@ -123,7 +123,7 @@ class MakeOrgao extends Command
             return;
         }
 
-        file_put_contents($file, rtrim($content)."\n".$requireLine."\n");
+        file_put_contents($file, rtrim($content) . "\n" . $requireLine . "\n");
         $this->line("  <info>[OK]</info>   web.php:                 require {$sigla}.php adicionado");
     }
 
@@ -141,7 +141,7 @@ class MakeOrgao extends Command
         $entry = "            '{$sigla}' => {$classe}ItemService::class,\n";
         $content = str_replace(
             '            default => throw',
-            $entry.'            default => throw',
+            $entry . '            default => throw',
             $content
         );
 
@@ -163,7 +163,7 @@ class MakeOrgao extends Command
         $entry = "            '{$sigla}' => {$classe}ProductService::class,\n";
         $content = str_replace(
             '            default => throw',
-            $entry.'            default => throw',
+            $entry . '            default => throw',
             $content
         );
 
@@ -208,24 +208,24 @@ class MakeOrgao extends Command
 
         // 2. Add specific items block before "// Navegação por órgão"
         $specificItems = "// Itens específicos {$upper}\n"
-            ."const {$sigla}SpecificItems: NavItem[] = [\n"
-            ."    {\n"
-            ."        title: 'Sobre o Órgão',\n"
-            ."        href: {$sigla}OrgaoIndex().url,\n"
-            ."        icon: Archive,\n"
-            ."        permission: ['ver orgao'],\n"
-            ."    },\n"
-            ."    {\n"
-            ."        title: 'Gerenciar Usuários',\n"
-            ."        href: {$sigla}CreateUser().url,\n"
-            ."        icon: Users,\n"
-            ."        permission: ['criar permissões'],\n"
-            ."    },\n"
-            ."];\n\n";
+            . "const {$sigla}SpecificItems: NavItem[] = [\n"
+            . "    {\n"
+            . "        title: 'Sobre o Órgão',\n"
+            . "        href: {$sigla}OrgaoIndex().url,\n"
+            . "        icon: Archive,\n"
+            . "        permission: ['ver orgao'],\n"
+            . "    },\n"
+            . "    {\n"
+            . "        title: 'Gerenciar Usuários',\n"
+            . "        href: {$sigla}CreateUser().url,\n"
+            . "        icon: Users,\n"
+            . "        permission: ['criar permissões'],\n"
+            . "    },\n"
+            . "];\n\n";
 
         $content = str_replace(
             '// Navegação por órgão',
-            $specificItems.'// Navegação por órgão',
+            $specificItems . '// Navegação por órgão',
             $content
         );
 
@@ -233,7 +233,7 @@ class MakeOrgao extends Command
         $navItem = "const {$sigla}NavItems: NavItem[] = [...defaultNavItems, ...productNavItems, ...itemNavItems, ...{$sigla}SpecificItems];\n\n";
         $content = str_replace(
             '// Mapeamento entre o identificador',
-            $navItem.'// Mapeamento entre o identificador',
+            $navItem . '// Mapeamento entre o identificador',
             $content
         );
 
@@ -241,7 +241,7 @@ class MakeOrgao extends Command
         $mapEntry = "    {$sigla}: {$sigla}NavItems,\n";
         $content = str_replace(
             '    default: defaultNavItems,',
-            $mapEntry.'    default: defaultNavItems,',
+            $mapEntry . '    default: defaultNavItems,',
             $content
         );
 
@@ -260,7 +260,7 @@ class MakeOrgao extends Command
     private function buildStub(string $name, string $sigla, string $classe): string
     {
         $published = base_path("stubs/xarife/{$name}.stub");
-        $default = __DIR__."/../../stubs/{$name}.stub";
+        $default = __DIR__ . "/../../stubs/{$name}.stub";
 
         $path = file_exists($published) ? $published : $default;
         $stub = file_get_contents($path);
