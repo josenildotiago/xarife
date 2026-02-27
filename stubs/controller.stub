@@ -1,0 +1,61 @@
+<?php
+
+namespace App\Http\Controllers\{CLASSE};
+
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\User\UserController;
+use App\Http\Requests\UserCreateRequest;
+use App\Models\Orgao;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Inertia\Response;
+
+class {CLASSE}Controller extends Controller
+{
+    public function __construct(private readonly UserController $userController) {}
+
+    public function index(): Response
+    {
+        $orgao = Orgao::where('orgao_sigla', '{SIGLA}')->first();
+
+        return Inertia::render('orgao/index', [
+            'orgao' => $orgao,
+        ]);
+    }
+
+    public function update(Request $request, string $id): RedirectResponse
+    {
+        $orgao = Orgao::findOrFail($id);
+
+        $orgao->orgao_name = $request->input('orgao_name');
+        $orgao->description = $request->input('description');
+        $orgao->estado = $request->input('estado');
+        $orgao->cidade = $request->input('cidade');
+        $orgao->bairro = $request->input('bairro');
+        $orgao->logradouro = $request->input('logradouro');
+        $orgao->cep = $request->input('cep');
+        $orgao->telefone = $request->input('telefone');
+        $orgao->cnpj = $request->input('cnpj');
+        $orgao->email = $request->input('email');
+        $orgao->user_id = Auth::user()->id;
+        $orgao->numero = $request->input('numero');
+        $orgao->responsavel = $request->input('responsavel');
+        $orgao->secretario = $request->input('secretario');
+        $orgao->outros = $request->input('outros');
+        $orgao->save();
+
+        return redirect()->back()->with('success', 'Órgão '.$orgao->orgao_name.' atualizado com sucesso.');
+    }
+
+    public function createUser(Request $request): Response
+    {
+        return $this->userController->createUser($request);
+    }
+
+    public function storeUser(UserCreateRequest $request): RedirectResponse
+    {
+        return $this->userController->storeUser($request);
+    }
+}

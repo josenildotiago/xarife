@@ -1,0 +1,92 @@
+<?php
+
+use App\Http\Controllers\{CLASSE}\{CLASSE}Controller;
+use Illuminate\Support\Facades\Route;
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    // ==========================================
+    // ROTAS DE ESTOQUE {UPPER}
+    // ==========================================
+
+    // VER ESTOQUE - Disponível para: operador, admin, super admin
+    Route::middleware(['permission:ver estoque'])->group(function () {
+        Route::get('/lote-{SIGLA}', [{CLASSE}Controller::class, 'lote'])
+            ->name('{SIGLA}.lote');
+        Route::get('/{SIGLA}_add_stock/{id}', [{CLASSE}Controller::class, 'addStockProduct{CLASSE}'])
+            ->name('{SIGLA}.add.stock');
+    });
+
+    // CRIAR/EDITAR ESTOQUE - Disponível para: admin, super admin
+    Route::middleware(['permission:editar estoque'])->group(function () {
+        Route::post('/{SIGLA}-lote-create', [{CLASSE}Controller::class, 'loteStore'])
+            ->name('{SIGLA}.lote.store');
+        Route::patch('/{SIGLA}-store-stock/{id}', [{CLASSE}Controller::class, 'storeStockProduct{CLASSE}'])
+            ->name('{SIGLA}.store.stock');
+    });
+
+    // ==========================================
+    // ROTAS DE ÓRGÃO {UPPER}
+    // ==========================================
+
+    // VER ÓRGÃO - Disponível para: usuario, operador, admin, super admin
+    Route::middleware(['permission:ver orgao'])->group(function () {
+        Route::get('/{SIGLA}-orgao-create', [{CLASSE}Controller::class, 'index'])
+            ->name('{SIGLA}.orgao.create');
+    });
+
+    // EDITAR ÓRGÃO - Disponível para: admin, super admin
+    Route::middleware(['permission:editar orgao'])->group(function () {
+        Route::put('/{SIGLA}-orgao-update/{id}', [{CLASSE}Controller::class, 'update'])
+            ->name('{SIGLA}.orgao.update');
+    });
+
+    // ==========================================
+    // ROTAS DE USUÁRIOS {UPPER}
+    // ==========================================
+
+    // VER USUÁRIOS - Disponível para: super admin {SIGLA}, super admin
+    Route::middleware(['permission:ver usuario'])->group(function () {
+        Route::get('/{SIGLA}-user-list', [{CLASSE}Controller::class, 'listUser'])
+            ->name('{SIGLA}.user.list');
+    });
+
+    // CRIAR USUÁRIOS - Disponível para: super admin {SIGLA}, super admin
+    Route::middleware(['permission:criar usuario'])->group(function () {
+        Route::post('/{SIGLA}-user-store', [{CLASSE}Controller::class, 'storeUser'])
+            ->name('{SIGLA}.user.store');
+    });
+
+    // EDITAR USUÁRIOS - Disponível para: super admin {SIGLA}, super admin
+    Route::middleware(['permission:editar usuario'])->group(function () {
+        Route::get('/{SIGLA}-user-edit/{id}', [{CLASSE}Controller::class, 'editUser'])
+            ->name('{SIGLA}.user.edit');
+        Route::put('/{SIGLA}-user-update/{id}', [{CLASSE}Controller::class, 'updateUser'])
+            ->name('{SIGLA}.user.update');
+    });
+
+    // EXCLUIR USUÁRIOS - Disponível para: super admin {SIGLA}, super admin
+    Route::middleware(['permission:excluir usuario'])->group(function () {
+        Route::delete('/{SIGLA}-user-delete/{id}', [{CLASSE}Controller::class, 'destroyUser'])
+            ->name('{SIGLA}.user.delete');
+    });
+
+    // ==========================================
+    // ROTAS DE RELATÓRIOS E LOGS
+    // ==========================================
+
+    // VER LOGS/RELATÓRIOS - Disponível para: todos os níveis autenticados
+    Route::middleware(['permission:ver logs'])->group(function () {
+        Route::get('/{SIGLA}-relatorio', [{CLASSE}Controller::class, 'reports'])
+            ->name('{SIGLA}.reports.all');
+    });
+
+    // ==========================================
+    // ROTAS DE GERENCIAR USUÁRIOS
+    // ==========================================
+
+    // CRIAR PERMISSÕES - Disponível apenas para: super admin {SIGLA}, super admin
+    Route::middleware(['permission:criar permissões'])->group(function () {
+        Route::get('/{SIGLA}-create-user', [{CLASSE}Controller::class, 'createUser'])
+            ->name('{SIGLA}.create.user');
+    });
+});

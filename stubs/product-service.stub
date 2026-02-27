@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Services\Product;
+
+// use App\Models\Product;
+
+class {CLASSE}ProductService extends AbstractProductService
+{
+    protected string $module = '{SIGLA}';
+
+    // protected function validateBeforeCreate(array &$data): void
+    // {
+    //     // Adicione validações específicas do órgão aqui
+    // }
+
+    // protected function addCustomFields(Product $product, array $data): void
+    // {
+    //     // Salva campos específicos na coluna JSON `outros`
+    // }
+
+    // protected function updateCustomFields(Product $product, array $data): void
+    // {
+    //     // Mesma lógica do addCustomFields para updates
+    // }
+}

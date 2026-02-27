@@ -1,0 +1,26 @@
+{
+    "name": "pmm/xarife",
+    "description": "Gerador de módulos de órgão para o sistema de almoxarifado da Prefeitura de Mossoró",
+    "version": "1.0.0",
+    "type": "library",
+    "license": "MIT",
+    "require": {
+        "php": "^8.3",
+        "illuminate/console": "^12.0",
+        "illuminate/support": "^12.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pmm\\Xarife\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Pmm\\Xarife\\XarifeServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

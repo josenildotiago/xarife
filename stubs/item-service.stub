@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Services\Item;
+
+use App\Models\Item;
+
+class {CLASSE}ItemService extends AbstractItemService
+{
+    protected string $module = '{SIGLA}';
+
+    protected function validateBeforeCreate(array &$data): void
+    {
+        // Adicione validações específicas do órgão para saídas aqui
+    }
+
+    protected function addCustomFields(Item $item, array $data): void
+    {
+        // Campos customizados específicos do órgão
+    }
+
+    protected function updateCustomFields(Item $item, array $data): void
+    {
+        // Atualizar campos customizados específicos do órgão
+    }
+}
