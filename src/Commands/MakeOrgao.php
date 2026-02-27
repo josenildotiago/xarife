@@ -34,9 +34,11 @@ class MakeOrgao extends Command
         $this->info("Módulo {$classe} gerado com sucesso!");
         $this->newLine();
         $this->comment('Próximos passos:');
-        $this->line('  1. Execute: <info>php artisan wayfinder:generate</info>');
-        $this->line("  2. Revise <info>routes/{$sigla}.php</info> com as rotas específicas do órgão");
-        $this->line("  3. Implemente os métodos faltantes em <info>{$classe}Controller</info> (lote, reports, listUser, editUser, updateUser, destroyUser)");
+        $this->line('  1. Execute: <info>npm run build</info>');
+        $this->line('  2. Execute: <info>php artisan optimize:clear</info>');
+        $this->line('  3. Execute: <info>php artisan wayfinder:generate</info>');
+        $this->line("  4. Revise <info>routes/{$sigla}.php</info> com as rotas específicas do órgão");
+        $this->line("  5. Implemente os métodos faltantes em <info>{$classe}Controller</info> (lote, reports, listUser, editUser, updateUser, destroyUser)");
         $this->newLine();
 
         return Command::SUCCESS;
