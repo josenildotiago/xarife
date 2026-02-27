@@ -1,7 +1,6 @@
 {
     "name": "pmm/xarife",
     "description": "Gerador de módulos de órgão para o sistema de almoxarifado da Prefeitura de Mossoró",
-    "version": "1.0.0",
     "type": "library",
     "license": "MIT",
     "require": {
